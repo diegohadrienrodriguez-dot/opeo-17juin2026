@@ -72,7 +72,9 @@
 
     /* ── QUICK ACCESS CARDS ── */
     .quick { background:#EDF2FA; padding:100px 0; }
-    .quick-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px; }
+    .quick-grid { display:grid;grid-template-columns:re
+      .hero-video { animation: fadeInVideo 1.5s ease-in-out forwards; }
+                 @keyframes fadeInVideo { from { opacity: 0; } to { opacity: 0.4; } }peat(3,1fr);gap:20px; }
     .q-card {
       background:#fff; border-radius:14px; padding:36px 28px;
       border-bottom:3px solid transparent; display:flex; flex-direction:column;
@@ -372,6 +374,7 @@
   <div class="hero-blob b2"></div>
   <div class="container hero-inner">
     <div class="hero-content">
+      <video class="hero-video" autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4;"><source src="https://videos.pexels.com/video-files/4360018/4360018-sd_640_360_30fps.mp4" type="video/mp4">Votre navigateur ne supporte pas les vidéos</video>video>
       <h1 class="hero-h1">Vos Opérations<br>sont <span class="hl">Stratégiques</span></h1>
       <p class="hero-desc">
         OPEO est un Cabinet de Conseil européen qui accompagne la transformation des opérations industrielles, notamment dans les secteurs du Luxe, Industrie de Process, Aéronautique &amp; Défense et Pharmaceutique – Santé.<br><br>
