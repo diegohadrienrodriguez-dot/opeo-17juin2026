@@ -1,0 +1,102 @@
+📦 opeo-16 juin 2026/
+│
+├─ 📖 DOCUMENTATION (Point d'entrée)
+│  ├─ START_HERE.md ..................... 👈 COMMENCER ICI
+│  ├─ QUICK_START.md ................... Démarrage rapide (2 min)
+│  ├─ GITHUB_SETUP.md .................. Publication GitHub (5 min)
+│  ├─ README.md ........................ Documentation complète
+│  ├─ DEPLOYMENT.md .................... Options de déploiement
+│  ├─ CONTRIBUTING.md .................. Guide contribution
+│  ├─ CHANGELOG.md ..................... Historique
+│  ├─ CHECKLIST.md ..................... Checklist avant publication
+│  └─ STRUCTURE.txt .................... Cette arborescence
+│
+├─ ⚙️ CONFIGURATION
+│  ├─ package.json ..................... Dependencies Node.js
+│  ├─ server.js ........................ Serveur Node.js
+│  ├─ .gitignore ....................... Fichiers à ignorer Git
+│  ├─ .env.example ..................... Exemple variables env
+│  ├─ LICENSE .......................... Licence (All Rights Reserved)
+│  └─ deploy/ .......................... Configuration déploiement
+│
+├─ 🌐 PAGES PRINCIPALES
+│  ├─ index.html ....................... Accueil
+│  ├─ a-propos.html .................... À propos / Équipe
+│  ├─ contact.html ..................... Formulaire contact
+│  ├─ publications.html ................ Publications
+│  ├─ mentions-legales.html ............ Mentions légales
+│  └─ transformation.html .............. Approche transformation
+│
+├─ 🎯 PAGES SECTEURS
+│  ├─ secteurs.html .................... Vue générale
+│  ├─ secteur-aeronautique.html ........ Secteur aéronautique
+│  ├─ secteur-pharma.html .............. Secteur pharmacie
+│  ├─ secteur-luxe.html ................ Secteur luxe
+│  ├─ secteur-process.html ............. Secteur process
+│  └─ secteur-*.html (autres) .......... Autres secteurs
+│
+├─ 💼 PAGES EXPERTISES
+│  ├─ expertises.html .................. Vue générale
+│  ├─ expertise-strategie.html ......... Expertise stratégie
+│  ├─ expertise-digital.html ........... Expertise digital
+│  ├─ expertise-rd.html ................ Expertise R&D
+│  ├─ expertise-supply-chain.html ...... Expertise supply chain
+│  ├─ expertise-excellence.html ........ Expertise excellence
+│  └─ article-example.html ............. Article exemple
+│
+├─ 🎨 STYLES & SCRIPTS
+│  ├─ styles.css ....................... Feuille de styles principale
+│  └─ main.js .......................... Scripts JavaScript
+│
+├─ 🖼️ RESSOURCES (assets/)
+│  └─ images/
+│     ├─ hero-bg.jpg ................... Image de fond accueil
+│     ├─ hero-apropos.jpg .............. Image à propos
+│     ├─ mission-bg.jpg ................ Image mission
+│     ├─ banniere-publications.jpg ..... Bannière publications
+│     ├─ logo-official.png ............. Logo OPEO
+│     ├─ photo-expertise.jpg ........... Photo expertise
+│     ├─ geste-transfo-photo.jpg ....... Photo transformation
+│     ├─ illu-opeo.jpg ................. Illustration
+│     ├─ publications.jpg .............. Image publications
+│     ├─ viseul-secteurs.png ........... Visuel secteurs
+│     └─ autres images...
+│
+└─ 📁 deploy/
+   └─ Configuration de déploiement (GitHub Actions, etc)
+
+
+═══════════════════════════════════════════════════════════════
+
+✨ RÉSUMÉ
+═════════
+
+Dossier complet avec:
+  ✓ 22 fichiers HTML
+  ✓ 14 images optimisées  
+  ✓ 9 fichiers documentation
+  ✓ 5 fichiers configuration
+  ✓ Prêt pour publication directe
+
+Poids total: ~117 MB
+
+═══════════════════════════════════════════════════════════════
+
+🚀 PUBLICATION EN 3 ÉTAPES
+═════════════════════════════
+
+1. Lire: START_HERE.md ou GITHUB_SETUP.md
+2. Créer: Repository sur github.com
+3. Publier: git push (voir guide pour commandes)
+
+═══════════════════════════════════════════════════════════════
+
+📞 SUPPORT
+═══════════
+
+Email: contact@opeo.consulting
+Docs: Voir fichiers .md dans ce dossier
+
+═══════════════════════════════════════════════════════════════
+
+Préparé: 16 juin 2026 | OPEO Consulting

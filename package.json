@@ -1,0 +1,26 @@
+{
+  "name": "opeo-site",
+  "version": "1.0.0",
+  "description": "Site officiel OPEO Consulting - Stratégie opérationnelle et transformation d'entreprise",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "consulting",
+    "operations",
+    "transformation",
+    "strategy"
+  ],
+  "author": "OPEO Consulting",
+  "license": "All Rights Reserved",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opeo-consulting/opeo-site"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
