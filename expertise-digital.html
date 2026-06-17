@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Digital & Data - OPEO</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .sub-hero{background:var(--navy);height:60vh;min-height:480px;max-height:700px;padding:0;display:flex;align-items:flex-end;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}.sub-hero>.container{padding-top:80px;}
+    .sub-hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 85% -5%,rgba(29,189,242,.13) 0%,transparent 58%);pointer-events:none;}
+    .sub-hero-ghost{position:absolute;right:-10px;bottom:-60px;font-size:300px;font-weight:900;color:#fff;opacity:.04;line-height:1;pointer-events:none;user-select:none;font-family:'Gotham','Helvetica Neue',sans-serif;}
+    .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(255,255,255,.35);margin-bottom:28px;position:relative;z-index:1;}
+    .breadcrumb a{color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s;}
+    .breadcrumb a:hover{color:var(--cyan);}
+    .bc-sep{color:rgba(255,255,255,.15);font-size:10px;}
+    .sub-code{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;position:relative;z-index:1;}
+    .sub-hero h1 {
+      font-size:clamp(38px,6vw,72px); font-weight:900;
+      color:#fff; line-height:1.12; letter-spacing:-.5px;
+      margin-bottom:22px; position:relative; z-index:1;
+    }
+    .sub-hero-tags{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:1;}
+    .sht{background:rgba(29,189,242,.12);border:1px solid rgba(29,189,242,.25);color:rgba(255,255,255,.75);font-size:12px;font-weight:600;padding:6px 16px;border-radius:30px;}
+    .conv{background:#fff;}
+    .section-head{margin-bottom:56px;}
+    .section-head .label{margin-bottom:12px;display:block;}
+    .section-head h2{font-size:clamp(24px,3vw,38px);color:var(--navy);font-weight:900;letter-spacing:-.3px;line-height:1.2;margin-bottom:14px;}
+    .section-head p{font-size:15px;color:var(--gray);line-height:1.85;max-width:56ch;}
+    /* ── Convictions Carousel ── */
+    .conv { background:#fff; overflow:hidden; padding-bottom:0 !important; }
+    .conv-header { display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:40px; }
+    .conv-header .section-head { margin-bottom:0; }
+    .conv-arrows { display:flex;gap:8px;flex-shrink:0;padding-bottom:14px; }
+    .conv-arr-btn { width:44px;height:44px;border-radius:50%;border:1.5px solid #dde3ef;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--navy);transition:all .2s;flex-shrink:0; }
+    .conv-arr-btn:hover:not([disabled]) { background:var(--navy);color:#fff;border-color:var(--navy); }
+    .conv-arr-btn[disabled] { opacity:.28;cursor:default; }
+    .conv-arr-btn svg { width:18px;height:18px; }
+    .conv-viewport { overflow-x:scroll;scroll-behavior:smooth;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;width:calc(100% + 80px);margin-right:-80px; }
+    .conv-viewport::-webkit-scrollbar { display:none; }
+    .conv-track { display:flex;gap:20px;padding-right:100px; }
+    .conv-card { flex-shrink:0;width:340px;min-height:432px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;scroll-snap-align:start;text-decoration:none; }
+    @media(min-width:1024px){ .conv-card { width:360px; } }
+    .conv-card-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.16,1,.3,1); }
+    .conv-card:hover .conv-card-img { transform:scale(1.06); }
+    .conv-card-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(3,38,106,.9) 0%,rgba(3,38,106,.42) 50%,rgba(3,38,106,.12) 100%); }
+    .conv-card-body { position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 28px 32px; }
+    .cc-num { display:inline-block;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);background:rgba(29,189,242,.18);padding:4px 10px;border-radius:20px;margin-bottom:14px;width:fit-content; }
+    .cc-title { font-size:18px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:10px; }
+    .cc-desc { font-size:13px;color:rgba(255,255,255,.68);line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:22px; }
+    .cc-link { display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#fff;letter-spacing:.5px;transition:gap .2s; }
+    .conv-card:hover .cc-link { gap:10px; }
+    .cc-link svg { width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s; }
+    .conv-card:hover .cc-link svg { transform:translateX(3px); }
+    .conv-dots { display:flex;gap:8px;padding:28px 0 48px; }
+    .conv-dot { width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;background:#d1d8e8;transition:background .25s,transform .25s;padding:0; }
+    .conv-dot.active { background:var(--navy);transform:scale(1.35); }
+    @media(max-width:900px){ .conv-header{flex-direction:column;align-items:flex-start;} .conv-card{width:280px;min-height:380px;} }
+    .ci-num{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+    .ci-title{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.3;}
+    .ci-desc{font-size:14px;color:var(--gray);line-height:1.85;}
+    .refs{background:#f5f7fb;}
+    .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    .ref-card{background:#fff;border-radius:16px;padding:32px;border-top:3px solid transparent;box-shadow:0 2px 16px rgba(3,38,106,.05);transition:all .3s var(--ease);}
+    .ref-card:hover{border-top-color:var(--cyan);transform:translateY(-4px);box-shadow:0 20px 44px rgba(3,38,106,.1);}
+    .ref-badge{display:inline-flex;align-items:center;gap:6px;background:#fff3e8;color:#b86000;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:30px;margin-bottom:20px;}
+    .ref-ctxt{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px;}
+    .ref-title{font-size:16px;font-weight:800;color:var(--navy);line-height:1.35;margin-bottom:14px;}
+    .ref-desc{font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:24px;}
+    .ref-sep{height:1px;background:#edf0f5;margin-bottom:20px;}
+    .ref-rlbl{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray);margin-bottom:14px;}
+    .ref-metrics{display:flex;flex-direction:column;gap:10px;}
+    .ref-metric{display:flex;align-items:baseline;gap:14px;}
+    .ref-mn{font-size:24px;font-weight:900;color:var(--navy);line-height:1;min-width:80px;flex-shrink:0;}
+    .ref-mn em{font-style:normal;color:var(--orange);font-size:18px;}
+    .ref-ml{font-size:13px;color:var(--gray);}
+    .team-s{background:var(--navy);}
+    .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;}
+    .team-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:28px 24px;transition:background .25s;}
+    .team-card:hover{background:rgba(255,255,255,.1);}
+    .team-ava{width:52px;height:52px;border-radius:50%;background:rgba(29,189,242,.15);border:2px solid rgba(29,189,242,.3);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-weight:800;font-size:16px;margin-bottom:16px;}
+    .team-name{font-size:15px;font-weight:800;color:#fff;margin-bottom:4px;}
+    .team-role{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;}
+    .sectors-s{background:#fff;}
+    .sector-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px;}
+    .sector-tag{background:#f0f4fa;border:1px solid #e0e8f0;color:var(--navy);font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;transition:all .2s;}
+    .sector-tag:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+    /* ── SUB CTA - EXPERT ── */
+    .sub-cta { background:linear-gradient(135deg,#03266A 0%,#081f5c 100%);padding:90px 0 80px;position:relative;overflow:hidden; }
+    .sub-cta::before { content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 120% at 75% 50%,rgba(29,189,242,.11) 0%,transparent 65%); }
+    .sub-cta-top { position:relative;z-index:1;text-align:center;margin-bottom:60px; }
+    .sub-cta-top h2 { font-size:clamp(24px,3.2vw,40px);color:#fff;line-height:1.2;margin:10px 0 12px; }
+    .sub-cta-top > p { color:rgba(255,255,255,.48);font-size:14px;line-height:1.75; }
+    .prof-wrap { display:flex;align-items:stretch;max-width:860px;margin:0 auto;position:relative;z-index:1; }
+    .prof-ava-col { flex-shrink:0;width:340px; }
+    .prof-ava { width:340px;height:340px;border-radius:24px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 28px 70px rgba(0,0,0,.4); }
+    .prof-ava::after { content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.14) 0%,transparent 55%); }
+    .prof-ava-grid { position:absolute;inset:0;opacity:.07;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:28px 28px; }
+    .prof-ava-initials { font-size:88px;font-weight:900;color:rgba(255,255,255,.28);letter-spacing:-5px;line-height:1;position:relative;z-index:1; }
+    .prof-card { flex:1;background:#fff;border-radius:24px;padding:40px 38px 34px;margin-left:-80px;margin-top:28px;margin-bottom:28px;box-shadow:0 32px 80px rgba(3,38,106,.24);display:flex;flex-direction:column;position:relative;z-index:2; }
+    .prof-card-name { font-size:23px;font-weight:800;color:var(--navy);margin-bottom:4px; }
+    .prof-card-role { font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:22px; }
+    .prof-card-sep { height:1px;background:#eef1f6;margin-bottom:18px; }
+    .prof-card-bio { font-size:13.5px;color:#4b5563;line-height:1.82;flex:1;margin-bottom:26px; }
+    .prof-cta-btn { display:inline-flex;align-items:center;gap:9px;background:var(--navy);color:#fff;padding:11px 22px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;transition:background .22s,transform .2s;width:fit-content; }
+    .prof-cta-btn:hover { background:var(--cyan);transform:translateY(-1px); }
+    .prof-cta-btn svg { width:15px;height:15px; }
+    .sub-cta-btns { display:flex;gap:16px;flex-wrap:wrap;justify-content:center; }
+    .btn-ve svg { width:14px;height:14px; }
+    @media(max-width:860px){ .prof-wrap { flex-direction:column;align-items:center; } .prof-ava-col,.prof-ava { width:200px;height:200px; } .prof-ava-initials { font-size:56px; } .prof-card { margin-left:0;margin-top:-18px;width:100%;max-width:460px; } }
+    @media(max-width:900px){ .conv-grid { grid-template-columns:1fr; } .ref-grid { grid-template-columns:1fr; } .team-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:580px){ .team-grid { grid-template-columns:1fr; } }
+    .sub-hero-title-cta { display:flex; align-items:center; gap:28px; flex-wrap:wrap; }
+    .sub-hero-title-cta h1 { flex:1; min-width:300px; margin-bottom:0; }
+    .sub-hero-title-cta .btn { white-space:nowrap; }
+  </style>
+</head>
+<body>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="index.html">Accueil</a><a href="a-propos.html">À propos</a><a href="expertises.html" class="active">Expertises</a><a href="secteurs.html">Secteurs</a><a href="transformation.html">Transformation</a><a href="publications.html">Publications</a><a href="carrieres.html">Carrières</a><a href="contact.html">Contact</a>
+  <div class="mob-lang-switch"><button class="lang-btn active">FR</button><button class="lang-btn" onclick="checkEnLang()">EN</button></div>
+</div>
+<nav class="navbar solid" id="navbar">
+  <div class="container"><div class="nav-inner">
+    <a href="index.html" class="nav-logo-link"><img src="logo-official.svg" class="nav-logo-img" alt="OPEO"/></a>
+    <ul class="nav-links">
+      <li><a href="a-propos.html">À propos</a></li><li class="has-drop"><a href="expertises.html" class="active">Expertises <svg class="drop-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a><div class="nav-drop nav-drop-wide"><div class="mega-header"><span class="mega-label">Nos Expertises</span></div><div class="drop-grid"><a href="expertise-strategie.html" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg></div><span class="drop-card-title">Stratégie Industrielle</span><span class="drop-card-desc">Réorientation et repositionnement industriel</span></a><a href="expertise-digital.html" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span class="drop-card-title">Digital &amp; Innovation</span><span class="drop-card-desc">Transformation numérique des opérations</span></a><a href="expertise-excellence.html" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><span class="drop-card-title">Excellence Opérationnelle</span><span class="drop-card-desc">Lean, performance et amélioration continue</span></a><a href="expertise-supply-chain.html" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><span class="drop-card-title">Supply Chain</span><span class="drop-card-desc">Optimisation des flux et résilience</span></a><a href="expertise-rd.html" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v10l-4 5h14l-4-5V3"/><line x1="6" y1="7" x2="18" y2="7"/></svg></div><span class="drop-card-title">R&amp;D &amp; Innovation</span><span class="drop-card-desc">Accélération des cycles d'innovation</span></a></div><div class="mega-footer"><a href="expertises.html">Toutes nos expertises <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div></li><li class="has-drop"><a href="secteurs.html">Secteurs <svg class="drop-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a><div class="nav-drop nav-drop-wide nav-drop-sec"><div class="mega-header"><span class="mega-label">Nos Secteurs</span></div><div class="drop-grid drop-grid-2"><a href="secteur-luxe.html" class="drop-card"><span class="drop-card-title">Luxe</span></a><a href="secteur-process.html" class="drop-card"><span class="drop-card-title">Industrie de Process</span></a><a href="secteur-aeronautique.html" class="drop-card"><span class="drop-card-title">Aéronautique & Défense</span></a><a href="secteur-pharma.html" class="drop-card"><span class="drop-card-title">Pharma & Santé</span></a></div></div></li><li><a href="transformation.html">Transformation</a></li><li><a href="publications.html">Publications</a></li><li><a href="carrieres.html">Carrières</a></li><li><a href="contact.html" class="cta-link">Contact</a></li>
+    </ul>
+    <div class="lang-switch"><button class="lang-btn active">FR</button><button class="lang-btn" onclick="checkEnLang()">EN</button></div>
+      <button class="hamburger" onclick="openMob()"><span></span><span></span><span></span></button>
+  </div></div>
+</nav>
+
+<section class="sub-hero">
+  <div class="sub-hero-glow"></div>
+  <div class="sub-hero-ghost">05</div>
+  <div class="container">
+    <div class="breadcrumb"><a href="expertises.html">Expertises</a><span class="bc-sep">›</span><span>Digital & Data</span></div>
+    <div class="sub-code">Expertise 05 / 05</div>
+    <div class="sub-hero-title-cta">
+      <h1>Digital & Data</h1>
+      <div class="sub-hero-offers">
+        <a href="expertises.html" class="btn btn-cyan">OFFRE - LEAN AUGMENTÉ</a>
+        <a href="expertises.html" class="btn btn-cyan">OFFRE - DIAGNOSTIC IA</a>
+        <a href="expertises.html" class="btn btn-cyan">OFFRE - IA INDUSTRIELLE OPEO X NOUVELLE-AQUITAINE</a>
+      </div>
+    </div>
+    <div class="sub-hero-tags">
+      <span class="sht">Data-driven operations</span>
+      <span class="sht">Intelligence Artificielle</span>
+      <span class="sht">Industrie 4.0</span>
+    </div>
+  </div>
+</section>
+
+<section class="conv page-pad">
+  <div class="container">
+    <div class="conv-header">
+      <div class="section-head reveal" style="margin-bottom:0">
+        <span class="label">Nos convictions</span>
+        <h2>Le digital au service des opérations industrielles</h2>
+        <p>Le digital n'est pas une fin en soi - c'est un levier de performance opérationnelle. OPEO accompagne les industriels avec une approche pragmatique, ancrée dans la réalité du terrain.</p>
+      </div>
+      <div class="conv-arrows">
+        <button class="conv-arr-btn" id="convPrev" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="conv-arr-btn" id="convNext" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="conv-viewport" id="convViewport">
+      <div class="conv-track" id="convTrack">
+        <a href="#" class="conv-card reveal">
+          <img class="conv-card-img" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80" alt="Data & opérations" loading="lazy"/>
+          <div class="conv-card-overlay"></div>
+          <div class="conv-card-body">
+            <span class="cc-num">01</span>
+            <div class="cc-title">La data au service des opérations</div>
+            <div class="cc-desc">Recentrer chaque projet digital sur l'impact terrain : meilleure visibilité, décisions plus rapides, réduction des variabilités.</div>
+            <div class="cc-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </div>
+        </a>
+        <a href="#" class="conv-card reveal">
+          <img class="conv-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Ciblage digital" loading="lazy"/>
+          <div class="conv-card-overlay"></div>
+          <div class="conv-card-body">
+            <span class="cc-num">02</span>
+            <div class="cc-title">Un ciblage pragmatique des usages</div>
+            <div class="cc-desc">Identifier les cas d'usage à fort ROI avant d'engager des investissements, pour éviter les déploiements coûteux sans impact réel.</div>
+            <div class="cc-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </div>
+        </a>
+        <a href="#" class="conv-card reveal">
+          <img class="conv-card-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Stratégie digitale" loading="lazy"/>
+          <div class="conv-card-overlay"></div>
+          <div class="conv-card-body">
+            <span class="cc-num">03</span>
+            <div class="cc-title">Une stratégie ambitieuse mais réaliste</div>
+            <div class="cc-desc">Construire des feuilles de route progressives calibrées sur la maturité réelle de l'organisation, qui créent de la valeur dès les premières étapes.</div>
+            <div class="cc-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </div>
+        </a>
+        <a href="#" class="conv-card reveal">
+          <img class="conv-card-img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Équipes autonomes" loading="lazy"/>
+          <div class="conv-card-overlay"></div>
+          <div class="conv-card-body">
+            <span class="cc-num">04</span>
+            <div class="cc-title">L'autonomie des équipes au cœur</div>
+            <div class="cc-desc">Former et accompagner les opérateurs et managers pour qu'ils soient autonomes dans l'usage des nouveaux outils.</div>
+            <div class="cc-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </div>
+        </a>
+        <a href="#" class="conv-card reveal">
+          <img class="conv-card-img" src="https://images.unsplash.com/photo-1581094794329-c8112a89f12d?w=800&q=80" alt="Transformation durable" loading="lazy"/>
+          <div class="conv-card-overlay"></div>
+          <div class="conv-card-body">
+            <span class="cc-num">05</span>
+            <div class="cc-title">Une transformation durable</div>
+            <div class="cc-desc">Ancrer les changements dans les pratiques, les indicateurs et la gouvernance pour que les bénéfices du digital perdurent.</div>
+            <div class="cc-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="conv-dots" id="convDots"></div>
+  </div>
+</section>
+
+<section class="sub-cta">
+  <div class="container">
+
+    <div class="sub-cta-top reveal">
+      <span class="label" style="color:rgba(255,255,255,.6)">Votre expert</span>
+      <h2>Parlons de votre transformation digitale</h2>
+      <p>Contactez notre expert pour explorer comment OPEO peut vous aider à extraire la pleine valeur du digital dans vos opérations industrielles.</p>
+    </div>
+
+    <div class="prof-wrap reveal">
+      <div class="prof-ava-col">
+        <div class="prof-ava" style="background:linear-gradient(145deg,#0d3570,#1587c8)">
+          <div class="prof-ava-grid"></div>
+          <span class="prof-ava-initials">TD</span>
+        </div>
+      </div>
+      <div class="prof-card">
+        <div class="prof-card-name">Teimour Daly</div>
+        <div class="prof-card-role">Directeur de Projets - Digital &amp; Data</div>
+        <div class="prof-card-sep"></div>
+        <p class="prof-card-bio">Diplômé d'une grande école d'ingénieurs, Teimour intervient à l'intersection des opérations industrielles et des technologies digitales. Spécialiste des transformations data-driven et des déploiements Industrie 4.0, il a accompagné plus de 15 sites industriels dans l'extraction de valeur à partir de leurs données et l'implémentation de solutions IA opérationnelles.</p>
+        <a href="contact.html" class="prof-cta-btn">Contacter Teimour</a>
+      </div>
+    </div>
+
+    <div class="sub-cta-btns reveal" style="margin-top:52px">
+      <a href="contact.html" class="btn-rdv"><span class="btn-rdv-label">Prendre un RDV</span><i class="btn-rdv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></i></a>
+      <a href="expertises.html" class="btn btn-ghost">← Toutes les expertises</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="refs page-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Nos références</span>
+      <h2>Missions réalisées</h2>
+      <p>Des résultats concrets, mesurables, obtenus aux côtés de nos clients sur le terrain.</p>
+    </div>
+    <div class="ref-grid reveal">
+      <div class="ref-card">
+        <div class="ref-badge">Agroalimentaire</div>
+        <div class="ref-ctxt">Contexte</div>
+        <div class="ref-title">Transformation data - PME agroalimentaire</div>
+        <div class="ref-desc">Déploiement d'une stratégie data-driven sur les opérations de production et de supply chain d'une PME industrielle, avec identification et priorisation des cas d'usage à fort impact.</div>
+        <div class="ref-sep"></div>
+        <div class="ref-rlbl">Résultats</div>
+        <div class="ref-metrics">
+          <div class="ref-metric"><span class="ref-mn">380k€</span><span class="ref-ml">Gains annualisés identifiés et sécurisés</span></div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-badge">Industrie 4.0</div>
+        <div class="ref-ctxt">Contexte</div>
+        <div class="ref-title">Lighthouse industriel - Transformation 4.0 d'envergure</div>
+        <div class="ref-desc">Accompagnement d'un site industriel dans sa transformation vers l'Industrie 4.0 : déploiement de solutions IIoT, data analytics et automatisation intelligente sur l'ensemble des lignes de production.</div>
+        <div class="ref-sep"></div>
+        <div class="ref-rlbl">Résultats</div>
+        <div class="ref-metrics">
+          <div class="ref-metric"><span class="ref-mn">30M€</span><span class="ref-ml">Valeur générée sur 5 ans</span></div>
+          <div class="ref-metric"><span class="ref-mn">✓</span><span class="ref-ml">Site labellisé Lighthouse par le WEF</span></div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-badge">Multi-secteurs</div>
+        <div class="ref-ctxt">Contexte</div>
+        <div class="ref-title">Programme AI Booster - 20+ PMI industrielles</div>
+        <div class="ref-desc">Déploiement d'un programme d'accélération IA auprès d'un groupe de PMI industrielles : identification des cas d'usage IA pertinents, prototypage rapide et accompagnement à la mise à l'échelle.</div>
+        <div class="ref-sep"></div>
+        <div class="ref-rlbl">Résultats</div>
+        <div class="ref-metrics">
+          <div class="ref-metric"><span class="ref-mn">40M€</span><span class="ref-ml">Potentiel de valeur identifié</span></div>
+          <div class="ref-metric"><span class="ref-mn">20+</span><span class="ref-ml">PMI accompagnées dans leur transformation IA</span></div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-badge">Industrie de Process</div>
+        <div class="ref-ctxt">Contexte</div>
+        <div class="ref-title">Pilotage de performance digital - Site industriel continu</div>
+        <div class="ref-desc">Mise en place d'un système de pilotage de la performance en temps réel sur un site de production en continu, avec tableaux de bord opérateurs et alertes automatisées pour les écarts critiques.</div>
+        <div class="ref-sep"></div>
+        <div class="ref-rlbl">Résultats</div>
+        <div class="ref-metrics">
+          <div class="ref-metric"><span class="ref-mn">✓</span><span class="ref-ml">Visibilité temps réel sur 100% des indicateurs clés</span></div>
+          <div class="ref-metric"><span class="ref-mn">✓</span><span class="ref-ml">Réduction significative des écarts de production non détectés</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team-s page-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label" style="color:rgba(255,255,255,.5)">Notre équipe</span>
+      <h2 style="color:#fff">Vos interlocuteurs experts</h2>
+      <p style="color:rgba(255,255,255,.45)">Des consultants spécialisés à l'intersection des opérations industrielles et des technologies digitales, pour des transformations qui génèrent un impact réel.</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card"><div class="team-ava">TD</div><div class="team-name">Teimour Daly</div><div class="team-role">Directeur de Projets</div></div>
+      <div class="team-card"><div class="team-ava">CN</div><div class="team-name">Clément Niessen</div><div class="team-role">Directeur de Projets</div></div>
+      <div class="team-card"><div class="team-ava">MV</div><div class="team-name">Michaël Valentin</div><div class="team-role">Directeur de Projets</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sectors-s page-pad">
+  <div class="container">
+    <div class="section-head reveal"><span class="label">Secteurs d'intervention</span><h2>Industries que nous accompagnons</h2></div>
+    <div class="sector-tags reveal">
+      <span class="sector-tag">Agroalimentaire</span><span class="sector-tag">Industrie de Process</span><span class="sector-tag">Aéronautique & Défense</span><span class="sector-tag">Luxe & Horlogerie</span><span class="sector-tag">Pharmaceutique & Santé</span><span class="sector-tag">Automobile</span>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ORANGE CTA BAND -->
+<section class="orange-band">
+  <div class="container">
+    <div class="orange-band-inner reveal">
+      <div>
+        <div class="orange-band-eyebrow">Digital &amp; Data</div>
+        <h2>Prêts à augmenter<br>vos opérations par la donnée ?</h2>
+        <p>Nos experts en transformation digitale accompagnent vos équipes de la stratégie data jusqu'au déploiement terrain des outils IA et analytics.</p>
+      </div>
+      <div class="orange-band-actions">
+        <a href="contact.html" class="btn btn-white">Prendre rendez-vous →</a>
+        <a href="expertises.html" class="btn btn-ghost-white">Voir nos offres</a>
+        <a href="brochure-opeo.pdf" download class="btn btn-ghost-white">Télécharger la brochure</a>
+        <a href="contact.html#question" class="btn btn-ghost-white">Poser une question</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="nav-logo-link"><img src="logo-official.svg" class="nav-logo-img" alt="OPEO"/></a><p>Cabinet de Conseil européen spécialisé dans la transformation des opérations industrielles.</p><div class="footer-socials"><a href="https://www.linkedin.com/company/opeo/" target="_blank" class="soc-link">in</a><a href="https://www.youtube.com/channel/UCHxWDzGkSoEmFhDaU6nbsCg" target="_blank" class="soc-link">▶</a></div></div>
+    <div class="footer-col"><h4>Expertises</h4><ul class="footer-nav"><li><a href="expertise-strategie.html">Stratégie Industrielle</a></li><li><a href="expertise-supply-chain.html">Supply Chain</a></li><li><a href="expertise-excellence.html">Excellence Opérationnelle</a></li><li><a href="expertise-rd.html">R&amp;D</a></li><li><a href="expertise-digital.html">Digital &amp; Data</a></li></ul></div>
+    <div class="footer-col"><h4>Navigation</h4><ul class="footer-nav"><li><a href="a-propos.html">À propos</a></li><li class="has-drop"><a href="secteurs.html">Secteurs <svg class="drop-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a><div class="nav-drop nav-drop-wide nav-drop-sec"><div class="mega-header"><span class="mega-label">Nos Secteurs</span></div><div class="drop-grid drop-grid-2"><a href="secteurs.html#luxe" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg></div><span class="drop-card-title">Luxe</span><span class="drop-card-desc">Maroquinerie, parfumerie, horlogerie</span></a><a href="secteurs.html#process" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v10l-4 5h14l-4-5V3"/><line x1="6" y1="7" x2="18" y2="7"/></svg></div><span class="drop-card-title">Industrie de Process</span><span class="drop-card-desc">Chimie, agro-alimentaire, matériaux</span></a><a href="secteurs.html#aero" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><span class="drop-card-title">Aéronautique &amp; Défense</span><span class="drop-card-desc">Constructeurs, équipementiers, MRO</span></a><a href="secteurs.html#pharma" class="drop-card"><div class="drop-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span class="drop-card-title">Pharmaceutique – Santé</span><span class="drop-card-desc">Production, supply et conformité réglementaire</span></a></div><div class="mega-footer"><a href="secteurs.html">Tous les secteurs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div></li><li><a href="carrieres.html">Carrières</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul class="footer-nav"><li><a href="contact.html">Nous contacter</a></li><li><a href="publications.html">Publications</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>@OPEO 2025 · Tous droits réservés</p><div class="footer-tagline">Vos Opérations sont <em>Stratégiques</em></div><p>Mentions légales · CGV · Égalité H/F</p></div>
+</div></footer>
+<script>
+function openMob(){document.getElementById('mobMenu').classList.add('open');}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
+const revObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');revObs.unobserve(x.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+// ── Convictions carousel ─────────────────────────────────────────────────────
+(function(){
+  var vp    = document.getElementById('convViewport');
+  var track = document.getElementById('convTrack');
+  var prev  = document.getElementById('convPrev');
+  var next  = document.getElementById('convNext');
+  var dotsEl= document.getElementById('convDots');
+  if(!vp||!track||!prev||!next||!dotsEl) return;
+  var cards = track.querySelectorAll('.conv-card');
+  var n = cards.length;
+  if(!n) return;
+  for(var i=0;i<n;i++){
+    var d=document.createElement('button');
+    d.className='conv-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Conviction '+(i+1));
+    (function(idx){ d.addEventListener('click',function(){ scrollTo(idx); }); })(i);
+    dotsEl.appendChild(d);
+  }
+  function getCardWidth(){ return cards[0].offsetWidth + 20; }
+  function scrollTo(idx){ vp.scrollTo({ left: idx * getCardWidth(), behavior:'smooth' }); }
+  function updateState(){
+    var idx = Math.round(vp.scrollLeft / getCardWidth());
+    idx = Math.max(0, Math.min(n-1, idx));
+    dotsEl.querySelectorAll('.conv-dot').forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+    prev.disabled = (idx === 0);
+    next.disabled = (idx === n-1);
+  }
+  prev.addEventListener('click', function(){ var idx=Math.round(vp.scrollLeft/getCardWidth()); scrollTo(Math.max(0,idx-1)); });
+  next.addEventListener('click', function(){ var idx=Math.round(vp.scrollLeft/getCardWidth()); scrollTo(Math.min(n-1,idx+1)); });
+  vp.addEventListener('scroll', updateState, { passive:true });
+  updateState();
+})();
+</script>
+
+
+<!-- LANG MODAL -->
+<div class="lang-modal-overlay" id="langModal" onclick="closeLangModal()">
+  <div class="lang-modal" onclick="event.stopPropagation()">
+    <button class="lang-modal-close" onclick="closeLangModal()" aria-label="Fermer">&#x2715;</button>
+    <div class="lang-modal-ico">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    </div>
+    <div class="lang-modal-kicker">EN &middot; English</div>
+    <h3>Version anglaise<br>en pr&eacute;paration</h3>
+    <p>Nous travaillons &agrave; la traduction de l&rsquo;ensemble de nos contenus en anglais. Revenez bient&ocirc;t.</p>
+    <a href="#" class="btn btn-navy" onclick="closeLangModal();return false;">Revenir au site &rarr;</a>
+  </div>
+</div>
+
+<script>
+/* Lang switch hover particles */
+(function(){
+  var lastT = 0;
+  document.querySelectorAll('.lang-btn:not(.active)').forEach(function(btn){
+    btn.addEventListener('pointermove', function(e){
+      var now = Date.now();
+      if(now - lastT < 100) return;
+      lastT = now;
+      var rect = btn.getBoundingClientRect();
+      var c = document.createElement('div');
+      c.className = 'lang-circle';
+      c.style.left = (e.clientX - rect.left) + 'px';
+      c.style.top  = (e.clientY - rect.top)  + 'px';
+      btn.appendChild(c);
+      requestAnimationFrame(function(){ c.classList.add('fade-in'); });
+      setTimeout(function(){ c.classList.replace('fade-in','fade-out'); }, 900);
+      setTimeout(function(){ c.remove(); }, 2100);
+    });
+  });
+})();
+</script>
+</body>
+</html>
